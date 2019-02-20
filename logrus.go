@@ -38,6 +38,14 @@ func ParseLevel(lvl string) (Level, error) {
 		return DebugLevel, nil
 	case "trace":
 		return TraceLevel, nil
+	case "critical":
+		return CriticalLevel, nil
+	case "emergency":
+		return EmergencyLevel, nil
+	case "notice":
+		return NoticeLevel, nil
+	case "alert":
+		return AlertLevel, nil
 	}
 
 	var l Level
@@ -56,6 +64,7 @@ func (level *Level) UnmarshalText(text []byte) error {
 	return nil
 }
 
+// MarshalText ...
 func (level Level) MarshalText() ([]byte, error) {
 	switch level {
 	case TraceLevel:
@@ -72,12 +81,20 @@ func (level Level) MarshalText() ([]byte, error) {
 		return []byte("fatal"), nil
 	case PanicLevel:
 		return []byte("panic"), nil
+	case NoticeLevel:
+		return []byte("notice"), nil
+	case EmergencyLevel:
+		return []byte("emergency"), nil
+	case AlertLevel:
+		return []byte("alert"), nil
+	case CriticalLevel:
+		return []byte("critical"), nil
 	}
 
-	return nil, fmt.Errorf("not a valid lorus level %q", level)
+	return nil, fmt.Errorf("not a valid logrus level %q", level)
 }
 
-// A constant exposing all logging levels
+// AllLevels a constant exposing all logging levels.
 var AllLevels = []Level{
 	PanicLevel,
 	FatalLevel,
@@ -86,6 +103,10 @@ var AllLevels = []Level{
 	InfoLevel,
 	DebugLevel,
 	TraceLevel,
+	AlertLevel,
+	CriticalLevel,
+	EmergencyLevel,
+	NoticeLevel,
 }
 
 // These are the different logging levels. You can set the logging level to log
@@ -109,6 +130,14 @@ const (
 	DebugLevel
 	// TraceLevel level. Designates finer-grained informational events than the Debug.
 	TraceLevel
+	// AlertLevel level. Used to log critical issues without stopping the program.
+	AlertLevel
+	// CriticalLevel level. Same usage as PanicLevel.
+	CriticalLevel
+	// EmergencyLevel level. Same usage as FatalLevel.
+	EmergencyLevel
+	// NoticeLevel level. Denotes non-error conditions that require special handling.
+	NoticeLevel
 )
 
 // Won't compile if StdLogger can't be realized by a log.Logger

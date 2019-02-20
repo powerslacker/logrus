@@ -225,6 +225,22 @@ func (logger *Logger) Panic(args ...interface{}) {
 	logger.Log(PanicLevel, args...)
 }
 
+func (logger *Logger) Alert(args ...interface{}) {
+	logger.Log(AlertLevel, args...)
+}
+
+func (logger *Logger) Critical(args ...interface{}) {
+	logger.Log(CriticalLevel, args...)
+}
+
+func (logger *Logger) Emergency(args ...interface{}) {
+	logger.Log(EmergencyLevel, args...)
+}
+
+func (logger *Logger) Notice(args ...interface{}) {
+	logger.Log(NoticeLevel, args...)
+}
+
 func (logger *Logger) Logln(level Level, args ...interface{}) {
 	if logger.IsLevelEnabled(level) {
 		entry := logger.newEntry()
