@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/sirupsen/logrus"
+	"github.com/powerslacker/logrus"
 	"github.com/stretchr/testify/require"
 )
 
@@ -46,13 +46,19 @@ func TestLevelMarshalText(t *testing.T) {
 		"info",
 		"debug",
 		"trace",
+		"alert",
+		"critical",
+		"emergency",
+		"notice",
 	}
+
 	for idx, val := range logrus.AllLevels {
 		level := val
 		t.Run(level.String(), func(t *testing.T) {
 			var cmp logrus.Level
 			b, err := level.MarshalText()
 			require.NoError(t, err)
+
 			require.Equal(t, levelStrings[idx], string(b))
 			err = cmp.UnmarshalText(b)
 			require.NoError(t, err)

@@ -1,7 +1,7 @@
 package logrus_test
 
 import (
-	"github.com/sirupsen/logrus"
+	"github.com/powerslacker/logrus"
 	"os"
 )
 
