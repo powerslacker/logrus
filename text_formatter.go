@@ -201,7 +201,7 @@ func (f *TextFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []strin
 	}
 
 	levelText := strings.ToUpper(entry.Level.String())
-	if !f.DisableLevelTruncation {
+	if !f.DisableLevelTruncation && len(levelText) > 3 {
 		levelText = levelText[0:4]
 	}
 

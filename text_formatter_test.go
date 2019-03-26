@@ -22,7 +22,7 @@ func TestFormatting(t *testing.T) {
 		value    string
 		expected string
 	}{
-		{`foo`, "time=\"0001-01-01T00:00:00Z\" level=panic test=foo\n"},
+		{`foo`, "timestamp=\"0001-01-01T00:00:00Z\" level=panic test=foo\n"},
 	}
 
 	for _, tc := range testCases {
@@ -117,9 +117,11 @@ func TestTimestampFormat(t *testing.T) {
 	checkTimeStr := func(format string) {
 		customFormatter := &TextFormatter{DisableColors: true, TimestampFormat: format}
 		customStr, _ := customFormatter.Format(WithField("test", "test"))
-		timeStart := bytes.Index(customStr, ([]byte)("time="))
+		println(string(customStr))
+		timeKey := FieldKeyTime + "="
+		timeStart := bytes.Index(customStr, ([]byte)(timeKey))
 		timeEnd := bytes.Index(customStr, ([]byte)("level="))
-		timeStr := customStr[timeStart+5+len("\"") : timeEnd-1-len("\"")]
+		timeStr := customStr[timeStart+len(timeKey)+len("\"") : timeEnd-1-len("\"")]
 		if format == "" {
 			format = time.RFC3339
 		}

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"runtime"
 	"strings"
 	"testing"
 )
@@ -50,7 +49,7 @@ func TestErrorNotLostOnFieldNotNamedError(t *testing.T) {
 func TestFieldClashWithTime(t *testing.T) {
 	formatter := &JSONFormatter{}
 
-	b, err := formatter.Format(WithField("time", "right now!"))
+	b, err := formatter.Format(WithField("timestamp", "right now!"))
 	if err != nil {
 		t.Fatal("Unable to format entry: ", err)
 	}
@@ -61,19 +60,19 @@ func TestFieldClashWithTime(t *testing.T) {
 		t.Fatal("Unable to unmarshal formatted entry: ", err)
 	}
 
-	if entry["fields.time"] != "right now!" {
+	if entry["fields.timestamp"] != "right now!" {
 		t.Fatal("fields.time not set to original time field")
 	}
 
-	if entry["time"] != "0001-01-01T00:00:00Z" {
-		t.Fatal("time field not set to current time, was: ", entry["time"])
+	if entry["timestamp"] != "0001-01-01T00:00:00Z" {
+		t.Fatal("time field not set to current time, was: ", entry["timestamp"])
 	}
 }
 
 func TestFieldClashWithMsg(t *testing.T) {
 	formatter := &JSONFormatter{}
 
-	b, err := formatter.Format(WithField("msg", "something"))
+	b, err := formatter.Format(WithField("message", "something"))
 	if err != nil {
 		t.Fatal("Unable to format entry: ", err)
 	}
@@ -84,8 +83,8 @@ func TestFieldClashWithMsg(t *testing.T) {
 		t.Fatal("Unable to unmarshal formatted entry: ", err)
 	}
 
-	if entry["fields.msg"] != "something" {
-		t.Fatal("fields.msg not set to original msg field")
+	if entry["fields.message"] != "something" {
+		t.Fatal("fields.message not set to original msg field")
 	}
 }
 
@@ -286,35 +285,6 @@ func TestFieldDoesNotClashWithCaller(t *testing.T) {
 	if entry["func"] != "howdy pardner" {
 		t.Fatal("func field replaced when ReportCaller=false")
 	}
-}
-
-func TestFieldClashWithCaller(t *testing.T) {
-	SetReportCaller(true)
-	formatter := &JSONFormatter{}
-	e := WithField("func", "howdy pardner")
-	e.Caller = &runtime.Frame{Function: "somefunc"}
-	b, err := formatter.Format(e)
-	if err != nil {
-		t.Fatal("Unable to format entry: ", err)
-	}
-
-	entry := make(map[string]interface{})
-	err = json.Unmarshal(b, &entry)
-	if err != nil {
-		t.Fatal("Unable to unmarshal formatted entry: ", err)
-	}
-
-	if entry["fields.func"] != "howdy pardner" {
-		t.Fatalf("fields.func not set to original func field when ReportCaller=true (got '%s')",
-			entry["fields.func"])
-	}
-
-	if entry["func"] != "somefunc" {
-		t.Fatalf("func not set as expected when ReportCaller=true (got '%s')",
-			entry["func"])
-	}
-
-	SetReportCaller(false) // return to default value
 }
 
 func TestJSONDisableTimestamp(t *testing.T) {

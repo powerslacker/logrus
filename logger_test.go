@@ -77,7 +77,7 @@ func TestNotice(t *testing.T) {
 	}
 	l.Notice("hello", "world")
 
-	assert.Equal(t, "level=notice msg=helloworld\n", buf.String())
+	assert.Equal(t, "level=notice message=helloworld\n", buf.String())
 }
 
 func TestLoggerDefaultLevel(t *testing.T) {
