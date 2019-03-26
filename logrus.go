@@ -16,9 +16,8 @@ type Level uint32
 func (level Level) String() string {
 	if b, err := level.MarshalText(); err == nil {
 		return string(b)
-	} else {
-		return "unknown"
 	}
+	return "unknown"
 }
 
 // ParseLevel takes a string level and returns the Logrus log level constant.

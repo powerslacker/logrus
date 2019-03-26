@@ -164,7 +164,6 @@ func getCaller() *runtime.Frame {
 	// cache this package's fully-qualified name
 	callerInitOnce.Do(func() {
 		logrusPackage = getPackageName(runtime.FuncForPC(pcs[0]).Name())
-
 		// now that we have the cache, we can skip a minimum count of known-logrus functions
 		// XXX this is dubious, the number of frames may vary store an entry in a logger interface
 		minimumCallerDepth = knownLogrusFrames
@@ -207,6 +206,7 @@ func (entry Entry) log(level Level, msg string) {
 	entry.Message = msg
 	if entry.Logger.ReportCaller {
 		entry.Caller = getCaller()
+		entry.Caller.File = cleanFilename(entry.Caller.File)
 	}
 
 	entry.fireHooks()
@@ -392,4 +392,13 @@ func (entry *Entry) Panicln(args ...interface{}) {
 func (entry *Entry) sprintlnn(args ...interface{}) string {
 	msg := fmt.Sprintln(args...)
 	return msg[:len(msg)-1]
+}
+
+func cleanFilename(f string) string {
+	prefix := "/go/src/"
+	idx := strings.Index(f, prefix)
+	if idx > -1 {
+		f = f[idx+len(prefix):]
+	}
+	return f
 }
