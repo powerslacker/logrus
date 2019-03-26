@@ -27,7 +27,7 @@ func ParseLevel(lvl string) (Level, error) {
 		return PanicLevel, nil
 	case "fatal":
 		return FatalLevel, nil
-	case "error":
+	case "err":
 		return ErrorLevel, nil
 	case "warn", "warning":
 		return WarnLevel, nil
@@ -37,9 +37,9 @@ func ParseLevel(lvl string) (Level, error) {
 		return DebugLevel, nil
 	case "trace":
 		return TraceLevel, nil
-	case "critical":
+	case "crit":
 		return CriticalLevel, nil
-	case "emergency":
+	case "emerg":
 		return EmergencyLevel, nil
 	case "notice":
 		return NoticeLevel, nil
@@ -75,7 +75,7 @@ func (level Level) MarshalText() ([]byte, error) {
 	case WarnLevel:
 		return []byte("warning"), nil
 	case ErrorLevel:
-		return []byte("error"), nil
+		return []byte("err"), nil
 	case FatalLevel:
 		return []byte("fatal"), nil
 	case PanicLevel:
@@ -83,11 +83,11 @@ func (level Level) MarshalText() ([]byte, error) {
 	case NoticeLevel:
 		return []byte("notice"), nil
 	case EmergencyLevel:
-		return []byte("emergency"), nil
+		return []byte("emerg"), nil
 	case AlertLevel:
 		return []byte("alert"), nil
 	case CriticalLevel:
-		return []byte("critical"), nil
+		return []byte("crit"), nil
 	}
 
 	return nil, fmt.Errorf("not a valid logrus level %q", level)

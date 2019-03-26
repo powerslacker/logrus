@@ -41,14 +41,14 @@ func TestLevelMarshalText(t *testing.T) {
 	levelStrings := []string{
 		"panic",
 		"fatal",
-		"error",
+		"err",
 		"warning",
 		"info",
 		"debug",
 		"trace",
 		"alert",
-		"critical",
-		"emergency",
+		"crit",
+		"emerg",
 		"notice",
 	}
 
