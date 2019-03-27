@@ -295,6 +295,22 @@ func (entry *Entry) Panic(args ...interface{}) {
 	panic(fmt.Sprint(args...))
 }
 
+func (entry *Entry) Alert(args ...interface{}) {
+	entry.Log(AlertLevel, args...)
+}
+
+func (entry *Entry) Critical(args ...interface{}) {
+	entry.Log(CriticalLevel, args...)
+}
+
+func (entry *Entry) Emergency(args ...interface{}) {
+	entry.Log(EmergencyLevel, args...)
+}
+
+func (entry *Entry) Notice(args ...interface{}) {
+	entry.Log(NoticeLevel, args...)
+}
+
 // Entry Printf family functions
 
 func (entry *Entry) Logf(level Level, format string, args ...interface{}) {
@@ -338,6 +354,22 @@ func (entry *Entry) Fatalf(format string, args ...interface{}) {
 
 func (entry *Entry) Panicf(format string, args ...interface{}) {
 	entry.Logf(PanicLevel, format, args...)
+}
+
+func (entry *Entry) Alertf(format string, args ...interface{}) {
+	entry.Logf(AlertLevel, format, args...)
+}
+
+func (entry *Entry) Criticalf(format string, args ...interface{}) {
+	entry.Logf(CriticalLevel, format, args...)
+}
+
+func (entry *Entry) Emergencyf(format string, args ...interface{}) {
+	entry.Logf(EmergencyLevel, format, args...)
+}
+
+func (entry *Entry) Noticef(format string, args ...interface{}) {
+	entry.Logf(NoticeLevel, format, args...)
 }
 
 // Entry Println family functions

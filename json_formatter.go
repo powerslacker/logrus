@@ -84,12 +84,6 @@ func (f *JSONFormatter) Format(entry *Entry) ([]byte, error) {
 	if entry.HasCaller() {
 		data[f.FieldMap.resolve(FieldKeyFile)] = fmt.Sprintf("%s:%d", entry.Caller.File, entry.Caller.Line)
 	}
-	// TODO: resolve these fields via some non hard coded process
-	data["application"] = "unknown"
-	data["habitat"] = "development"
-	data["host"] = "unknown"
-	data["trace_id"] = "reserved"
-	data["span_id"] = "reserved"
 
 	var b *bytes.Buffer
 	if entry.Buffer != nil {

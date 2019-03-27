@@ -178,6 +178,22 @@ func (logger *Logger) Panicf(format string, args ...interface{}) {
 	logger.Logf(PanicLevel, format, args...)
 }
 
+func (logger *Logger) Alertf(format string, args ...interface{}) {
+	logger.Logf(AlertLevel, format, args...)
+}
+
+func (logger *Logger) Criticalf(format string, args ...interface{}) {
+	logger.Logf(CriticalLevel, format, args...)
+}
+
+func (logger *Logger) Emergencyf(format string, args ...interface{}) {
+	logger.Logf(EmergencyLevel, format, args...)
+}
+
+func (logger *Logger) Noticef(format string, args ...interface{}) {
+	logger.Logf(NoticeLevel, format, args...)
+}
+
 func (logger *Logger) Log(level Level, args ...interface{}) {
 	if logger.IsLevelEnabled(level) {
 		entry := logger.newEntry()
