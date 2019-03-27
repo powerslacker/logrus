@@ -34,7 +34,7 @@ func main() {
     Habitat: os.GetEnv("HABITAT"),
     Host: os.GetEnv("HOST"),
   }
-  // this isn't real code, just an example...
+
   s := Server{
     Port: "8080",
     Logger: b.NewLogger(),
