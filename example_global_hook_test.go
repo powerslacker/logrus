@@ -31,6 +31,6 @@ func ExampleGlobalVariableHook() {
 	mystring = "another value"
 	l.Info("second log")
 	// Output:
-	// level=info msg="first log" mystring="first value"
-	// level=info msg="second log" mystring="another value"
+	// level=info message="first log" mystring="first value"
+	// level=info message="second log" mystring="another value"
 }

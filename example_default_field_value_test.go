@@ -26,5 +26,5 @@ func ExampleDefaultField() {
 	l.AddHook(&DefaultFieldHook{GetValue: func() string { return "with its default value" }})
 	l.Info("first log")
 	// Output:
-	// level=info msg="first log" aDefaultField="with its default value"
+	// level=info message="first log" aDefaultField="with its default value"
 }
