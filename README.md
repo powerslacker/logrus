@@ -24,7 +24,13 @@ type Server {
 }
 
 func (s *Server) Start() {
+  // P.S. - the entry variable fufills the NavLogger interface
+  entry := s.Logger.WithField("tags", []string{"oh", "hi", "mark"}))
   s.Logger.Infof("started server on port :%s", s.Port)
+  /* output:
+  {"application":"application-name","filename":"path/to/app/main.go:13","habitat":"dev","host":"local","level":"info","message":"started server on port :8080","span_id":"reserved","tags":["oh","hi","mark"],"timestamp":"2038-03-16T11:11:11-06:00","trace_id":"reserved"}
+  */
+
   // ... serve requests
 }
 

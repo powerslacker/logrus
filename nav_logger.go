@@ -53,4 +53,6 @@ type NavLogger interface {
 	Notice(args ...interface{})
 	Info(args ...interface{})
 	Debug(args ...interface{})
+	WithFields(fields Fields) *Entry
+	WithField(key string, value interface{}) *Entry
 }
