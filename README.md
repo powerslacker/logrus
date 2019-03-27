@@ -1,7 +1,7 @@
 # Logrus
 
 This is a fork of the original sirupsen/logrus package. It is intended for use
-by NAV to meet [RFC 12](https://git.nav.com/engineering/Nav-Engineering-Standards/blob/master/proposals/012-logging-standardization.md).
+by Nav to meet [RFC 12](https://git.nav.com/engineering/Nav-Engineering-Standards/blob/master/proposals/012-logging-standardization.md).
 
 ## Usage
 
