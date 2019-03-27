@@ -1,3 +1,49 @@
+# Logrus
+
+This is a fork of the original sirupsen/logrus package. It is intended for use
+by NAV to meet [RFC 12](https://git.nav.com/engineering/Nav-Engineering-Standards/blob/master/proposals/012-logging-standardization.md).
+
+## Usage
+
+While this package can be used in the same way as the traditional logrus package,
+there is a convenience struct named `Base` intended for use by Nav. An application
+should initialize this `Base` struct with appropriate values. The `Base` struct
+can create new log entries, which are intended to be passed into functions,
+packages, and structs for later use.
+
+```go
+import (
+  "os"
+  "github.com/powerslacker/logrus"
+)
+
+
+type Server {
+  Port string
+  Logger logrus.NavLogger
+}
+
+func (s *Server) Start() {
+  s.Logger.Infof("started server on port :%s", s.Port)
+  // ... serve requests
+}
+
+func main() {
+  b := logrus.Base{
+    Application: os.GetEnv("SERVICE"),
+    Habitat: os.GetEnv("HABITAT"),
+    Host: os.GetEnv("HOST"),
+  }
+  // this isn't real code, just an example...
+  s := Server{
+    Port: "8080",
+    Logger: b.NewLogger(),
+  }
+}
+```
+
+# ORIGNAL README
+
 # Logrus <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/>&nbsp;[![Build Status](https://travis-ci.org/sirupsen/logrus.svg?branch=master)](https://travis-ci.org/sirupsen/logrus)&nbsp;[![GoDoc](https://godoc.org/github.com/powerslacker/logrus?status.svg)](https://godoc.org/github.com/powerslacker/logrus)
 
 Logrus is a structured logger for Go (golang), completely API compatible with
