@@ -4,6 +4,7 @@ type Base struct {
 	Application string
 	Habitat     string
 	Host        string
+	PrettyPrint bool
 }
 
 func (b *Base) setDefaults() {
@@ -22,7 +23,9 @@ func (b *Base) setDefaults() {
 func (b *Base) NewLogger() NavLogger {
 	b.setDefaults()
 	logger := New()
-	logger.SetFormatter(&JSONFormatter{})
+	logger.SetFormatter(&JSONFormatter{
+		PrettyPrint: b.PrettyPrint,
+	})
 	logger.ReportCaller = true
 	e := logger.WithFields(Fields{
 		"application": b.Application,
