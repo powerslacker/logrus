@@ -1,5 +1,6 @@
 package logrus
 
+// Base is used to create new NavLogger entries.
 type Base struct {
 	Application string
 	Habitat     string
@@ -38,7 +39,8 @@ func (b *Base) NewLogger() NavLogger {
 }
 
 // NavLogger is a logger  that implements RFC 12:
-//https://git.nav.com/engineering/Nav-Engineering-Standards/blob/master/proposals/012-logging-standardization.md
+// https://git.nav.com/engineering/Nav-Engineering-Standards/blob/master/proposals/012-logging-standardization.md
+// Also fufills the `Logger` interface.
 type NavLogger interface {
 	Emergencyf(format string, args ...interface{})
 	Alertf(format string, args ...interface{})
@@ -48,6 +50,7 @@ type NavLogger interface {
 	Noticef(format string, args ...interface{})
 	Infof(format string, args ...interface{})
 	Debugf(format string, args ...interface{})
+	Printf(format string, args ...interface{})
 	Emergency(args ...interface{})
 	Alert(args ...interface{})
 	Critical(args ...interface{})
